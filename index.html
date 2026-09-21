@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101725" />
+    <title>BodyMaps CT Viewer</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark">BM</span><div><strong>BodyMaps</strong><small>JHU · CT workstation</small></div></div>
+        <div class="toolbar" aria-label="Viewer controls">
+          <div class="view-buttons" role="group" aria-label="View"><button data-view="grid" class="active">Grid</button><button data-view="axial">Axial</button><button data-view="coronal">Coronal</button><button data-view="sagittal">Sagittal</button><button data-view="render">3D</button></div>
+          <button id="crosshair-button" title="Toggle crosshair">Crosshair: on</button>
+          <button id="reset-button">Reset view</button>
+          <label class="file-button">Open NIfTI<input id="file-input" type="file" accept=".nii,.gz,.nii.gz" multiple hidden /></label>
+        </div>
+      </header>
+      <main>
+        <aside class="sidebar">
+          <section><div class="section-heading"><h2>Segments</h2><div><button id="show-all">Show all</button><button id="hide-all">Hide all</button></div></div><div id="segment-list" class="segment-list"></div></section>
+          <section class="window-section"><h2>CT window / level</h2><div class="preset-grid" id="preset-grid"></div><label>Window <output id="window-value">400</output><input id="window-slider" type="range" min="100" max="4000" step="10" value="400" /></label><label>Level <output id="level-value">40</output><input id="level-slider" type="range" min="-1000" max="2000" step="10" value="40" /></label></section>
+          <section class="hint"><h2>Controls</h2><p>Scroll to change slices. Left-click to position the crosshair. Drag files here or use <em>Open NIfTI</em>; the first file becomes CT and following files are masks.</p></section>
+        </aside>
+        <section id="viewer-wrap" class="viewer-wrap" aria-label="CT image viewer">
+          <canvas id="gl"></canvas>
+          <div id="drop-message">Drop .nii or .nii.gz files to load</div>
+          <div class="orientation-labels" aria-hidden="true"><span>R</span><span>A</span><span>S</span></div>
+          <div id="loading" class="loading"><div class="spinner"></div><strong>Loading BodyMaps case</strong><span id="loading-detail">Preparing viewer…</span></div>
+          <div id="error" class="error" hidden></div>
+          <div class="readout"><span id="organ-readout">Background</span><strong id="hu-readout">— HU</strong></div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
