@@ -23,6 +23,7 @@ export function setupUI(viewer) {
   ['window', 'level'].forEach((name) => $( `${name}-slider`).addEventListener('input', () => setWindowLevel($('window-slider').value, $('level-slider').value)));
   document.querySelector('.view-buttons').addEventListener('click', (event) => { if (!event.target.dataset.view) return; document.querySelectorAll('[data-view]').forEach((button) => button.classList.toggle('active', button === event.target)); viewer.setView(event.target.dataset.view); });
   $('crosshair-button').onclick = () => { const on = viewer.toggleCrosshair(); $('crosshair-button').textContent = `Crosshair: ${on ? 'on' : 'off'}`; };
+  $('cut-3d-toggle').onchange = (event) => viewer.setCutAtCrosshair(event.target.checked);
   $('reset-button').onclick = () => { viewer.resetView(); document.querySelector('[data-view="grid"]').click(); };
   const acceptFiles = async (files) => { try { await viewer.loadFiles(files); } catch (error) { showError(error); } };
   $('file-input').onchange = (event) => acceptFiles(event.target.files);

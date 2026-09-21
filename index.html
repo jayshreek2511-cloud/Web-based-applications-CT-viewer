@@ -13,6 +13,7 @@
         <div class="toolbar" aria-label="Viewer controls">
           <div class="view-buttons" role="group" aria-label="View"><button data-view="grid" class="active">Grid</button><button data-view="axial">Axial</button><button data-view="coronal">Coronal</button><button data-view="sagittal">Sagittal</button><button data-view="render">3D</button></div>
           <button id="crosshair-button" title="Toggle crosshair">Crosshair: on</button>
+          <label title="Slice the 3D rendering at the current axial crosshair position"><input id="cut-3d-toggle" type="checkbox" /> Cut 3D at crosshair</label>
           <button id="reset-button">Reset view</button>
           <label class="file-button">Open NIfTI<input id="file-input" type="file" accept=".nii,.gz,.nii.gz" multiple hidden /></label>
         </div>
