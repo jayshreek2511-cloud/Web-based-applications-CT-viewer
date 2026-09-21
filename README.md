@@ -17,6 +17,8 @@ _Screenshot placeholder: run the application and capture the multiplanar view fo
 
 ## Run locally
 
+The BDMAP study data is intentionally excluded from this repository. Before starting the app, place the supplied case at `public/data/BDMAP_00000338/` so it contains `ct.nii.gz` and `segmentations/`. The application otherwise reports a clear loading error rather than downloading medical imaging data.
+
 ```powershell
 npm install
 npm run dev
