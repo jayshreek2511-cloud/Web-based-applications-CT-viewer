@@ -13,7 +13,8 @@ A browser-based CT and organ-segmentation viewer built for a BodyMaps/JHU resear
 
 ## Screenshot
 
-_Screenshot placeholder: run the application and capture the multiplanar view for your lab documentation._
+<img width="1902" height="867" alt="image" src="https://github.com/user-attachments/assets/4e4bf0fe-c896-4f50-a3f2-a9f3c9964083" />
+
 
 ## Run locally
 
