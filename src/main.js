@@ -9,8 +9,9 @@ setupUI(viewer);
 
 try {
   await viewer.init();
-  await viewer.loadDefault((done, total, name) => { detail.textContent = `Checking ${done}/${total}: ${name}`; });
+  await viewer.loadDefault((done, total, name) => { detail.textContent = `Loaded ${done}/${total}: ${name}`; });
   loading.hidden = true;
+  console.info('BodyMaps load: overlay hidden');
 } catch (error) {
   loading.hidden = true;
   showError(error);

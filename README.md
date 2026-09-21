@@ -17,7 +17,7 @@ _Screenshot placeholder: run the application and capture the multiplanar view fo
 
 ## Run locally
 
-The BDMAP study data is intentionally excluded from this repository. Before starting the app, place the supplied case at `public/data/BDMAP_00000338/` so it contains `ct.nii.gz` and `segmentations/`. The application otherwise reports a clear loading error rather than downloading medical imaging data.
+The bundled BDMAP demonstration case is stored at `public/data/BDMAP_00000338/` and contains `ct.nii.gz` plus `segmentations/`. The viewer fetches each file, detects whether the browser has already decompressed a `Content-Encoding: gzip` response, and supplies NiiVue with the matching filename so it does not attempt a second decompression.
 
 ```powershell
 npm install
@@ -33,7 +33,7 @@ npm run preview
 
 ## Deploy to GitHub Pages
 
-`vite.config.js` uses `base: './'`, so static asset URLs resolve under a repository sub-path. Build with `npm run build`, publish the contents of `dist/` to GitHub Pages (for example with a GitHub Actions Pages workflow), and keep `public/data/` in the repository so the NIfTI files deploy with the site.
+`vite.config.js` uses `base: './'`, so static asset URLs resolve under a repository sub-path. Build with `npm run build`, publish the contents of `dist/` to GitHub Pages (for example with a GitHub Actions Pages workflow), and keep the tracked `public/data/` NIfTI files alongside the built assets so the viewer can load them.
 
 ## Data source and credits
 
