@@ -43,3 +43,5 @@ The included demonstration data is `BDMAP_00000338`, copied from the supplied lo
 ## Known limitations
 
 This is a demo viewer, not a clinical workstation: it does not provide DICOM ingestion, measurements, segmentation editing, PACS connectivity, persistence, or medical-device validation. Large studies depend on available browser memory and GPU/WebGL2 support. Local-file overlays are assumed to already be aligned to the CT grid.
+
+The **Open NIfTI** control supports loading a custom scan and overlay files, but this experimental workflow may not handle every NIfTI study or alignment case yet.
