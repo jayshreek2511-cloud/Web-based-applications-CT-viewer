@@ -32,10 +32,11 @@ export function setupUI(viewer) {
   wrap.addEventListener('drop', (event) => acceptFiles([...event.dataTransfer.files].filter((file) => /\.nii(\.gz)?$/i.test(file.name))));
 }
 
-export function updateReadout(location, volumes) {
-  const values = location?.values ?? []; const base = values[0]?.value;
-  const mask = values.slice(1).find((value) => Number(value.value) > 0.5);
-  const organ = ORGANS.find((item) => mask?.name?.startsWith(item.id));
+export function updateReadout(location, maskHits = []) {
+  const base = location?.values?.[0]?.value;
+  // CTViewer samples every loaded default mask at the crosshair in its own
+  // voxel space. This avoids depending on a single NiiVue callback value.
+  const organ = maskHits[0];
   $('organ-readout').textContent = organ?.name || 'Background';
   $('hu-readout').textContent = Number.isFinite(base) ? `${Math.round(base)} HU` : '— HU';
 }

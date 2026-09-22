@@ -20,11 +20,36 @@ export class CTViewer {
     this.cutAtCrosshair = false;
     this.nv.onLocationChange = (location) => {
       if (this.cutAtCrosshair) this.updateCrosshairClip();
-      onLocation(location, this.nv.volumes);
+      onLocation(location, this.maskHitsAtLocation(location));
     };
   }
 
-  async init() { await this.nv.attachTo(this.canvasId); }
+  async init() {
+    await this.nv.attachTo(this.canvasId);
+    // NiiVue updates scene.crosshairPos before this listener runs, so this
+    // reports the exact voxels inspected after a 2D click.
+    document.getElementById(this.canvasId).addEventListener('click', () => this.logCrosshairMaskHits());
+  }
+
+  maskHitsAtLocation(location) {
+    const mm = location?.mm ?? this.nv.frac2mm(this.nv.scene.crosshairPos, 0, true);
+    return ORGANS.map((organ, index) => {
+      const volume = this.nv.volumes[index + 1];
+      if (!volume) return null;
+      const vox = volume.mm2vox(mm);
+      const value = volume.getValue(vox[0], vox[1], vox[2], volume.frame4D);
+      return { id: organ.id, name: organ.name, value, vox: [...vox] };
+    }).filter((mask) => mask && Number(mask.value) > 0.5);
+  }
+
+  logCrosshairMaskHits() {
+    const vox = this.nv.frac2vox(this.nv.scene.crosshairPos);
+    const hits = this.maskHitsAtLocation();
+    console.debug('BodyMaps click:', JSON.stringify({
+      crosshairVox: [...vox],
+      maskHits: hits.map(({ name, vox: maskVox, value }) => ({ name, vox: maskVox, value })),
+    }));
+  }
 
   async loadDefault(onProgress, maskCount = ORGANS.length) {
     const volumes = [
